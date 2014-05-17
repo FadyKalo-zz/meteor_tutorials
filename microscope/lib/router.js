@@ -17,7 +17,12 @@ Router.map(function () {
             return Posts.findOne(this.params._id);
         }
     });
-
+    this.route('postEdit', {
+        path: '/posts/:_id/edit',
+        data: function () {
+            return Posts.findOne(this.params._id);
+        }
+    });
     this.route('postSubmit', {
         path: '/submit'
     });
@@ -28,7 +33,8 @@ Router.map(function () {
 var requireLogin = function (pause) {
     if (!Meteor.user()) {
         if (Meteor.loggingIn()) {
-            this.render(this.loadingTemplate);
+            this.render('loading');
+//            this.render(this.loadingTemplate);
         }
         else {
             this.render('accessDenied');
