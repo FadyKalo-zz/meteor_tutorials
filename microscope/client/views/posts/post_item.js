@@ -1,7 +1,5 @@
-/**
- * Created with PyCharm.
- * User: fady
- * Date: 5/17/14
- * Time: 3:31 PM
- * To change this template use File | Settings | File Templates.
- */
+Template.postItem.helpers({ domain: function () {
+    var a = document.createElement('a');
+    a.href = this.url;
+    return a.hostname;
+} });
