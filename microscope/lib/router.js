@@ -24,4 +24,13 @@ Router.map(function () {
 
 });
 
+
+var requireLogin = function (pause) {
+    if (!Meteor.user()) {
+        this.render('accessDenied');
+        pause();
+    }
+}
+
 Router.onBeforeAction('loading');
+Router.onBeforeAction(requireLogin, {only: 'postSubmit'});
