@@ -1,2 +1,11 @@
+#IDEA stuff
+.idea
+
+# MAC stuff
+.DS_Store
+
+#Meteor files
 .meteor/local
 .meteor/meteorite
+
+#Specific Files
