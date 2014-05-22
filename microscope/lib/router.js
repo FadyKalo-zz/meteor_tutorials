@@ -1,50 +1,51 @@
+/*globals Router, Posts, Errors*/
+
 Router.configure({
-    layoutTemplate: 'layout',
-    loadingTemplate: 'loading',
-    waitOn: function () {
-        return [Meteor.subscribe('posts'), Meteor.subscribe('comments')];
-    }
+  layoutTemplate: 'layout',
+  loadingTemplate: 'loading',
+  waitOn: function () {
+    return [Meteor.subscribe('posts'), Meteor.subscribe('comments')];
+  }
 });
 
 Router.map(function () {
-    this.route('postsList', {
-        path: '/'
-    });
+  this.route('postsList', {
+    path: '/'
+  });
 
-    this.route('postPage', {
-        path: '/posts/:_id',
-        data: function () {
-            return Posts.findOne(this.params._id);
-        }
-    });
-    this.route('postEdit', {
-        path: '/posts/:_id/edit',
-        data: function () {
-            return Posts.findOne(this.params._id);
-        }
-    });
-    this.route('postSubmit', {
-        path: '/submit'
-    });
+  this.route('postPage', {
+    path: '/posts/:_id',
+    data: function () {
+      return Posts.findOne(this.params._id);
+    }
+  });
+  this.route('postEdit', {
+    path: '/posts/:_id/edit',
+    data: function () {
+      return Posts.findOne(this.params._id);
+    }
+  });
+  this.route('postSubmit', {
+    path: '/submit'
+  });
 
 });
 
 
 var requireLogin = function (pause) {
-    if (!Meteor.user()) {
-        if (Meteor.loggingIn()) {
-            this.render('loading');
+  if (!Meteor.user()) {
+    if (Meteor.loggingIn()) {
+      this.render('loading');
 //            this.render(this.loadingTemplate);
-        }
-        else {
-            this.render('accessDenied');
-        }
-        pause();
+    } else {
+      this.render('accessDenied');
     }
-}
+    pause();
+  }
+};
 
 Router.onBeforeAction('loading');
 Router.onBeforeAction(requireLogin, {only: 'postSubmit'});
 Router.onBeforeAction(function () {
-    Errors.clearSeen();
+  Errors.clearSeen();
 });

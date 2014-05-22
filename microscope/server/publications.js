@@ -1,7 +1,7 @@
 Meteor.publish('posts', function () {
-    return Posts.find();
+  return Posts.find();
 });
 
 Meteor.publish('comments', function () {
-    return Comments.find();
+  return Comments.find();
 });
